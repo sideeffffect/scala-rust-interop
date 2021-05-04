@@ -15,8 +15,8 @@ lazy val native = project
   .settings(commonSettings)
   .settings(
     name := "scala-rust-interop-native",
-    nativeBuildTool := Cargo,
-    nativeCompile / sourceDirectory := sourceDirectory.value,
+    nativeBuildTool := Cargo(),
+    nativeCompile / sourceDirectory := baseDirectory.value,
     libraryDependencies ++= List(
     ),
   )
@@ -28,7 +28,6 @@ lazy val core = project
   .settings(
     name := "scala-rust-interop-core",
     Compile / mainClass := Some("com.github.sideeffffect.scalarustinterop.Main"),
-    javah / target := (native / nativeCompile / sourceDirectory).value / "include",
     scalacOptions --= List("-Xfatal-warnings"),
     libraryDependencies ++= List(
       //      Dependencies.doobie,

@@ -4,16 +4,16 @@ import sbt._
 import java.io.File
 import scala.sys.process._
 
-object Cargo extends BuildTool {
+private final class Cargo private (release: Boolean = true) extends BuildTool {
 
-  override def name: String = "cargo"
+  def name: String = "cargo"
 
-  override def detect(baseDirectory: File): Boolean =
+  def detect(baseDirectory: File): Boolean =
     baseDirectory.list().contains("Cargo.toml")
 
-  override protected def templateMappings: Seq[(String, String)] = List()
+  protected def templateMappings: Seq[(String, String)] = List()
 
-  override def getInstance(baseDirectory: File, buildDirectory: File, logger: sbt.Logger): Instance =
+  def getInstance(baseDirectory: File, buildDirectory: File, logger: sbt.Logger): Instance =
     new Instance {
 
       // IntelliJ friendly logger, it doesn't start tests a line is printed as "error"
@@ -27,19 +27,24 @@ object Cargo extends BuildTool {
         Process("cargo clean", baseDirectory) ! log
 
       def library(targetDirectory: File): File = {
+        val releaseFlag = if (release) "--release " else ""
         val ev =
-          Process(s"cargo build --target-dir ${targetDirectory.getAbsolutePath}", baseDirectory) ! log
+          Process(
+            s"cargo build $releaseFlag--target-dir ${targetDirectory.getAbsolutePath}",
+            baseDirectory,
+          ) ! log
         if (ev != 0) sys.error(s"Building native library failed. Exit code: $ev")
 
+        val subdir = if (release) "release" else "debug"
         val products: List[File] =
-          (targetDirectory / "debug" * ("*.so" | "*.dylib")).get.filter(_.isFile).toList
+          (targetDirectory / subdir * ("*.so" | "*.dylib")).get.filter(_.isFile).toList
 
         // only one produced library is expected
         products match {
           case Nil =>
             sys.error(
               s"No files were created during compilation, " +
-                s"something went wrong with the ${name} configuration.",
+                s"something went wrong with the $name configuration.",
             )
           case head :: Nil =>
             head
@@ -53,4 +58,8 @@ object Cargo extends BuildTool {
       }
 
     }
+}
+
+object Cargo {
+  def apply(release: Boolean = true): BuildTool = new Cargo(release)
 }
