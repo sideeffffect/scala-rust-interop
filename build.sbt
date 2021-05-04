@@ -15,6 +15,7 @@ lazy val native = project
   .settings(commonSettings)
   .settings(
     name := "scala-rust-interop-native",
+    nativeBuildTool := Cargo,
     nativeCompile / sourceDirectory := sourceDirectory.value,
     libraryDependencies ++= List(
     ),

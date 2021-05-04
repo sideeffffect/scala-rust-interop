@@ -6,7 +6,7 @@ import zio.test._
 
 object MainSpec extends DefaultRunnableSpec {
   def spec: ZSpec[TestEnvironment, Failure] =
-    suite("Service")(
+    suite("MainSpec")(
       test("adder")(assert(new Adder(12).plus(34))(equalTo(46))),
     )
 }

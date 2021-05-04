@@ -39,3 +39,10 @@ file(GLOB LIB_SRC
 set (LIB_NAME ${PROJECT_NAME}${PROJECT_VERSION_MAJOR})
 add_library(${LIB_NAME} SHARED ${LIB_SRC})
 install(TARGETS ${LIB_NAME} LIBRARY DESTINATION .)
+
+add_custom_target(
+    lib_adder_rust
+    COMMAND cargo build -q
+    WORKING_DIRECTORY ../../../../src
+)
+add_dependencies(adder0 lib_adder_rust)
