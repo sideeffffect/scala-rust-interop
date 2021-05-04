@@ -15,7 +15,7 @@ lazy val native = project
   .settings(commonSettings)
   .settings(
     name := "scala-rust-interop-native",
-    nativeBuildTool := Cargo(),
+    nativeBuildTool := Cargo.make(),
     nativeCompile / sourceDirectory := baseDirectory.value,
     libraryDependencies ++= List(
     ),
@@ -30,31 +30,15 @@ lazy val core = project
     Compile / mainClass := Some("com.github.sideeffffect.scalarustinterop.Main"),
     scalacOptions --= List("-Xfatal-warnings"),
     libraryDependencies ++= List(
-      //      Dependencies.doobie,
-      //      Dependencies.circe,
-      //      Dependencies.commonsLang,
-      //      Dependencies.emil,
-      //      Dependencies.http4sCirce,
-      //      Dependencies.http4sDsl,
-      //      Dependencies.http4sServer,
-      //      Dependencies.liquibase,
-      //      Dependencies.logback,
-      //      Dependencies.mariadb,
-      //      Dependencies.snakeyaml,
       Dependencies.zio,
-      //      Dependencies.zioCats,
-      //      Dependencies.zioConfig,
-      //      Dependencies.zioConfigMagnolia,
-      //      Dependencies.zioMagic,
       // Test
-      //      Dependencies.testcontainers % Test,
       Dependencies.zioTest % Test,
       Dependencies.zioTestSbt % Test,
     ),
   )
   .dependsOn(native % Runtime)
 
-lazy val commonSettings: List[Def.Setting[_]] = /* DecentScala.decentScalaSettings ++ */ List(
+lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings ++ List(
   organization := "com.github.sideeffffect",
   homepage := Some(url("https://github.com/sideeffffect/scala-rust-interop")),
   licenses := List("GPLv3" -> url("https://www.gnu.org/licenses/gpl-3.0.en.html")),
@@ -67,22 +51,11 @@ lazy val commonSettings: List[Def.Setting[_]] = /* DecentScala.decentScalaSettin
     ),
   ),
   scalaVersion := crossScalaVersions.value.head,
-  crossScalaVersions := List("2.13.5"),
-//  crossScalaVersions := List(DecentScala.decentScalaVersion213),
-//  ThisBuild / scalafixDependencies ++= List(
-//    Dependencies.zioMagicComments,
-//  ),
+  crossScalaVersions := List(DecentScala.decentScalaVersion213),
   testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
-//  missinglinkExcludedDependencies ++= List(
-//    moduleFilter(organization = "ch.qos.logback", name = "logback-classic"),
-//    moduleFilter(organization = "ch.qos.logback", name = "logback-core"),
-//    moduleFilter(organization = "com.zaxxer", name = "HikariCP"),
-//    moduleFilter(organization = "org.slf4j", name = "slf4j-api"),
-//  ),
-//  mimaReportBinaryIssues := {},
-  // https://github.com/olafurpg/sbt-ci-release/issues/181
-  sonatypeCredentialHost := "s01.oss.sonatype.org",
-  sonatypeRepository := "https://s01.oss.sonatype.org/service/local",
+  missinglinkExcludedDependencies ++= List(
+  ),
+  mimaReportBinaryIssues := {},
 )
 
-addCommandAlias("ci", "; javah; check; +publishLocal")
+addCommandAlias("ci", "; check; +publishLocal")

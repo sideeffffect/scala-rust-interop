@@ -61,5 +61,5 @@ private final class Cargo private (release: Boolean = true) extends BuildTool {
 }
 
 object Cargo {
-  def apply(release: Boolean = true): BuildTool = new Cargo(release)
+  def make(release: Boolean = true): BuildTool = new Cargo(release)
 }
