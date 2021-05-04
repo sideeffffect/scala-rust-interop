@@ -1,0 +1,12 @@
+package com.github.sideeffffect.scalarustinterop
+
+import zio.test.Assertion._
+import zio.test.environment._
+import zio.test._
+
+object MainSpec extends DefaultRunnableSpec {
+  def spec: ZSpec[TestEnvironment, Failure] =
+    suite("Service")(
+      test("adder")(assert(new Adder(12).plus(34))(equalTo(46))),
+    )
+}

@@ -7,3 +7,6 @@ metals.sbt
 idea-bloop.sbt
 .theia
 .bsp
+native/src/.cache
+native/src/build
+native/src/include
