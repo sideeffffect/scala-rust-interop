@@ -15,7 +15,6 @@ lazy val native = project
   .settings(commonSettings)
   .settings(
     name := "scala-rust-interop-native",
-    nativeBuildTool := Cargo.make(),
     nativeCompile / sourceDirectory := baseDirectory.value,
     libraryDependencies ++= List(
     ),
@@ -28,7 +27,6 @@ lazy val core = project
   .settings(
     name := "scala-rust-interop-core",
     Compile / mainClass := Some("com.github.sideeffffect.scalarustinterop.Main"),
-    scalacOptions --= List("-Xfatal-warnings"),
     libraryDependencies ++= List(
       Dependencies.zio,
       // Test
@@ -51,7 +49,7 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
     ),
   ),
   scalaVersion := crossScalaVersions.value.head,
-  crossScalaVersions := List(DecentScala.decentScalaVersion213),
+  crossScalaVersions := List(DecentScala.decentScalaVersion213, DecentScala.decentScalaVersion212),
   testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
   missinglinkExcludedDependencies ++= List(
   ),
