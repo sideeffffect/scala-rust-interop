@@ -1,6 +1,6 @@
 # Scala <-> Rust interop
 
-https://github.com/jodersky/sbt-jni
+https://github.com/sbt/sbt-jni
 
 https://docs.rs/jni
 

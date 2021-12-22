@@ -12,7 +12,7 @@ use jni::sys::jint;
 // This keeps Rust from "mangling" the name and making it unique for this
 // crate.
 #[no_mangle]
-pub extern "system" fn Java_com_github_sideeffffect_scalarustinterop_Divider_divide(
+pub extern "system" fn Java_com_github_sideeffffect_scalarustinterop_Divider_divideBy(
   env: JNIEnv,
   object: JObject,
   denominator: jint,

@@ -6,5 +6,5 @@ import com.github.sbt.jni.nativeLoader
 @nativeLoader("divider")
 @silent("never used")
 class Divider(val numerator: Int) {
-  @native def divide(denominator: Int): Int // implemented in libdivider.so
+  @native def divideBy(denominator: Int): Int // implemented in libdivider.so
 }

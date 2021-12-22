@@ -40,3 +40,11 @@ pull_request_rules:
       - label="mergify-update"
     actions:
       update: {}
+  - name: automatic update for dependency update PRs
+    conditions:
+      - -conflict # skip PRs with conflicts
+      - -draft # filter-out GH draft PRs
+      - "label=type: dependencies"
+    actions:
+      update: {}
+
