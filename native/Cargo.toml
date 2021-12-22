@@ -1,5 +1,5 @@
 [package]
-name = "adder"
+name = "divider"
 version = "0.1.0"
 authors = ["Ondra Pelech <ondra.pelech@gmail.com>"]
 edition = "2018"

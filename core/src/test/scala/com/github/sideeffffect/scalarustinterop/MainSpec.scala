@@ -7,6 +7,6 @@ import zio.test.environment._
 object MainSpec extends DefaultRunnableSpec {
   def spec: ZSpec[TestEnvironment, Failure] =
     suite("MainSpec")(
-      test("adder")(assert(new Adder(12).plus(34))(equalTo(46))),
+      test("divider")(assert(new Divider(36).divide(12))(equalTo(3))),
     )
 }

@@ -12,16 +12,17 @@ use jni::sys::jint;
 // This keeps Rust from "mangling" the name and making it unique for this
 // crate.
 #[no_mangle]
-pub extern "system" fn Java_com_github_sideeffffect_scalarustinterop_Adder_plus(
+pub extern "system" fn Java_com_github_sideeffffect_scalarustinterop_Divider_divide(
   env: JNIEnv,
   object: JObject,
-  term: jint,
+  denominator: jint,
 ) -> jint {
   let result = panic::catch_unwind(|| {
-    let base = env.get_field(object, "base", "I").unwrap().i().unwrap();
-    println!("Printing from rust library. base: {}", base);
-    println!("Printing from rust library. term: {}", term);
-    base + term
+    println!("Hello from Rust!");
+    let numerator = env.get_field(object, "numerator", "I").unwrap().i().unwrap();
+    println!("Printing from rust library. numerator: {}", numerator);
+    println!("Printing from rust library. denominator: {}", denominator);
+    numerator / denominator
   });
   result.unwrap_or_else(|e| {
     let description = e
