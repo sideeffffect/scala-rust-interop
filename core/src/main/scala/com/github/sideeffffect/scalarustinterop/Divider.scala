@@ -1,10 +1,9 @@
 package com.github.sideeffffect.scalarustinterop
 
 import com.github.ghik.silencer.silent
-import com.github.sbt.jni.nativeLoader
+import com.github.sbt.jni.syntax.NativeLoader
 
-@nativeLoader("divider")
 @silent("never used")
-class Divider(val numerator: Int) {
+class Divider(val numerator: Int) extends NativeLoader("divider") {
   @native def divideBy(denominator: Int): Int // implemented in libdivider.so
 }
