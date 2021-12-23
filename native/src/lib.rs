@@ -30,7 +30,8 @@ pub extern "system" fn Java_com_github_sideeffffect_scalarustinterop_Divider_div
       .map(|e| &**e)
       .or_else(|| e.downcast_ref::<&'static str>().copied())
       .unwrap_or("Unknown error in native code.");
-    env.throw_new("java/lang/RuntimeException", description).unwrap();
+    // don't `unwrap` `throw_new`, another JVM exception might have already been thrown, in which case the `Result` is `Err`
+    let _ = env.throw_new("java/lang/RuntimeException", description);
     -1 // some value to satisfy type checker, it won't be used
   })
 }
