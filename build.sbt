@@ -32,7 +32,6 @@ lazy val core = project
       Dependencies.zioTestSbt % Test,
     ),
     sbtJniCoreScope := Compile,
-    classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
   )
   .dependsOn(native % Runtime)
 
