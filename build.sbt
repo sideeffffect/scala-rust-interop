@@ -33,7 +33,8 @@ lazy val core = project
       Dependencies.zioTest % Test,
       Dependencies.zioTestSbt % Test,
     ),
-    sbtJniCoreScope := Compile,
+    sbtJniCoreScope := Compile, // because we use `NativeLoader`, not the `@nativeLoader` macro
+    classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat, // because of `turbo := true`, otherwise `java.lang.UnsatisfiedLinkError: com.github.sideeffffect.scalarustinterop.Divider.divideBy(I)I`
   )
   .dependsOn(native % Runtime)
 
