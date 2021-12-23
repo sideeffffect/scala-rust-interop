@@ -16,8 +16,6 @@ lazy val native = project
   .settings(
     name := "scala-rust-interop-native",
     nativeCompile / sourceDirectory := baseDirectory.value,
-    libraryDependencies ++= List(
-    ),
   )
   .enablePlugins(JniNative)
 
@@ -33,6 +31,8 @@ lazy val core = project
       Dependencies.zioTest % Test,
       Dependencies.zioTestSbt % Test,
     ),
+    sbtJniCoreScope := Compile,
+    classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
   )
   .dependsOn(native % Runtime)
 
