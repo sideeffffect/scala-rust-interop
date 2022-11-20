@@ -5,7 +5,7 @@ authors = ["Ondra Pelech <ondra.pelech@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-jni = "0.19"
+jni = "0.20"
 
 [lib]
 crate_type = ["cdylib"]
