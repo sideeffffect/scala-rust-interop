@@ -3,7 +3,7 @@ on:
   pull_request:
 jobs:
   ciJvms:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -23,7 +23,7 @@ jobs:
         run: ./sbt ci
 
   ci:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [ ciJvms ]
     steps:
       - name: Aggregate of lint, and all tests
